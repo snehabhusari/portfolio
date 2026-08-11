@@ -1,16 +1,16 @@
-# Use the official lightweight Nginx image
 FROM nginx:alpine
 
-# Remove default Nginx welcome page
+# Purani default file hatayein
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copy your portfolio files into Nginx's public directory
-COPY sneha.html /usr/share/nginx/html/index.html
-COPY style.css /usr/share/nginx/html/
-COPY pass.jpg /usr/share/nginx/html/
+# Apni saari files copy karein
+COPY sneha.html /usr/share/nginx/html/sneha.html
+COPY style.css /usr/share/nginx/html/style.css
+COPY pass.jpg /usr/share/nginx/html/pass.jpg
 
-# Expose port 80 for web traffic
+# Ek default index.html bhi bana dein jo sneha.html par redirect kare (agar zaroorat ho)
+RUN echo '<meta http-equiv="refresh" content="0; URL=sneha.html">' > /usr/share/nginx/html/index.html
+
 EXPOSE 80
 
-# Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]

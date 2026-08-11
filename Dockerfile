@@ -1,11 +1,16 @@
-# Use the official Nginx image as the base image
+# Use the official lightweight Nginx image
 FROM nginx:alpine
 
-# Copy your portfolio files into Nginx's default public directory
-COPY . /usr/share/nginx/portfolio
+# Remove default Nginx welcome page
+RUN rm -rf /usr/share/nginx/html/*
 
-# Expose port 80 to allow web traffic
+# Copy your portfolio files into Nginx's public directory
+COPY sneha.html /usr/share/nginx/html/index.html
+COPY style.css /usr/share/nginx/html/
+COPY pass.jpg /usr/share/nginx/html/
+
+# Expose port 80 for web traffic
 EXPOSE 80
 
-# Start Nginx in the foreground
+# Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]

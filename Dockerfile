@@ -1,24 +1,7 @@
 FROM nginx:alpine
 
-# Remove default nginx config
-RUN rm /etc/nginx/conf.d/default.conf
-
-# Create custom nginx config
-RUN echo 'server { \
-  listen 80; \
-  server_name _; \
-  root /usr/share/nginx/html; \
-  index index.html; \
-  \
-  location / { \
-    try_files $uri $uri/ /index.html; \
-  } \
-  \
-  location ~* \.(css|js|jpg|jpeg|png|gif|ico)$ { \
-    expires 1y; \
-    add_header Cache-Control "public, immutable"; \
-  } \
-}' > /etc/nginx/conf.d/default.conf
+# Copy custom nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy portfolio files
 COPY sneha.html /usr/share/nginx/html/index.html

@@ -2,7 +2,7 @@
 FROM nginx:alpine
 
 # Copy your portfolio files into Nginx's default public directory
-COPY . /usr/share/nginx/sneha.html
+COPY . /usr/share/nginx/portfolio
 
 # Expose port 80 to allow web traffic
 EXPOSE 80

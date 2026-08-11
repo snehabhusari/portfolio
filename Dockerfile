@@ -1,26 +1,14 @@
-FROM nginx:alpine
+FROM nginx:latest
 
-# Remove default nginx config
-RUN rm /etc/nginx/conf.d/default.conf
+WORKDIR /usr/share/nginx/html
 
-# Create new config inline
-RUN cat > /etc/nginx/conf.d/default.conf <<'EOF'
-server {
-    listen 80 default_server;
-    server_name _;
-    root /usr/share/nginx/html;
-    index index.html;
+# Copy your files
+COPY sneha.html ./index.html
+COPY style.css ./style.css
+COPY pass.jpg ./pass.jpg
 
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
-EOF
-
-# Copy portfolio files  
-COPY sneha.html /usr/share/nginx/html/index.html
-COPY style.css /usr/share/nginx/html/style.css
-COPY pass.jpg /usr/share/nginx/html/pass.jpg
+# Copy nginx config
+COPY default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
